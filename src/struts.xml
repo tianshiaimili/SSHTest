@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    
+   <!--  常用开关的介绍
+<constant name="struts.i18n.encoding" value="UTF-8"/>
+指定Web应用的默认编码集，相当于调用HttpServletRequest的setCharacterEncoding方法
+
+<constant name="struts.action.extension" value="do"/>
+该属性指定需要Struts 2处理的请求后缀，该属性的默认值是action，即所有匹配*.action的请求都由Struts 2处理。    如果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（，）隔开。   
+
+<constant name="struts.serve.static.browserCache " value="false"/>
+设置浏览器是否缓存静态内容，默认值为true，开发阶段最好false
+
+<constant name="struts.configuration.xml.reload" value="true"/>
+当struts的配置文件修改后，系统是否自动重新加载该文件，默认值为false，开发阶段最好true
+
+<constant name="struts.devMode" value="true"/>
+开发模式下设为true，这样可以打印出更详细的错误信息
+
+<constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+动态方法调用,可以解决多个请求对应一个Servlet的问题,后面详细讲解,默认为true,关闭则设为false.
+
+struts.i18n.reload该属性设置是否每次HTTP请求到达时，系统都重新加载资源文件。该属性默认值是false。在开发阶段将该属性设置为true会更有利于开发，但在产品发布阶段应将该属性设置为false。
+
+struts.configuration.xml.reload该属性设置当struts.xml文件改变后，系统是否自动重新加载该文件。该属性的默认值是false。
+ -->
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.reload" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.convention.default.parent.package"
+		value="root" />
+
+	<package name="root" extends="struts-default">
+		<global-results>
+			<result name="input">/jsp/error.jsp</result>
+		</global-results>
+		<!-- 按名称搜索 -->
+		<action name="search" class="cn.net.msg.action.UserAction"
+			method="findByName">
+			<result name="success">/jsp/welcome.jsp</result>
+		</action>
+		<!-- 下面三个action处理前台传过来的增删改请求，然后redirect回主页 -->
+		<action name="handleinsert" class="cn.net.msg.action.UserAction"
+			method="insert">
+			<result name="success" type="redirect">/</result>
+		</action>
+		<action name="handleupdate" class="cn.net.msg.action.UserAction"
+			method="update">
+			<result name="success" type="redirect">/</result>
+		</action>
+		<action name="handledelete" class="cn.net.msg.action.UserAction"
+			method="delete">
+			<result name="success" type="redirect">/</result>
+		</action>
+		<!-- 欢迎页面 -->
+		<action name="" class="cn.net.msg.action.UserAction" method="findAll">
+			 <result>/jsp/welcome.jsp</result> 
+			<!-- <result>/jsp/error.jsp</result> -->
+		</action>
+	</package>
+
+</struts>
